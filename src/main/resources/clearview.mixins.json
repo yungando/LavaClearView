@@ -2,9 +2,8 @@
   "required": true,
   "minVersion": "0.8",
   "package": "snownee.clearview.mixin",
-  "compatibilityLevel": "JAVA_16",
-  "mixins": [
-  ],
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [],
   "client": [
     "MixinFogRenderer",
     "MixinScreenEffectRenderer"

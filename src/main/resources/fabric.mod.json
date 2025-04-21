@@ -2,33 +2,25 @@
   "schemaVersion": 1,
   "id": "clearview",
   "version": "${version}",
-
   "name": "Lava Clear View",
   "description": "Allow you to see more easily under lava, when you have fire resistance.",
-  "authors": ["Snownee"],
+  "authors": [
+    "Snownee"
+  ],
   "contact": {
     "homepage": "https://minecraft.curseforge.com/projects/lava-clear-view-fabric",
     "sources": "https://github.com/Snownee/LavaClearView",
     "issues": "https://github.com/Snownee/LavaClearView/issues"
   },
-
   "license": "MIT",
-
   "environment": "client",
   "entrypoints": {},
-  "mixins": ["clearview.mixins.json"],
-
+  "mixins": [
+    "clearview.mixins.json"
+  ],
   "depends": {
-    "fabricloader": ">=0.13",
-    "minecraft": ">=1.18.2",
-    "java": ">=17"
-  },
-
-  "custom": {
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://discord.gg/rRBvGkz"
-      }
-    }
+    "minecraft": "1.21.x",
+    "fabricloader": ">=0.16.13",
+    "java": ">=21"
   }
 }

@@ -1,30 +1,28 @@
 package snownee.clearview.mixin;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.hud.InGameOverlayRenderer;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.registry.tag.FluidTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.ScreenEffectRenderer;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.world.effect.MobEffects;
-
-@Mixin(ScreenEffectRenderer.class)
+@Mixin(InGameOverlayRenderer.class)
 public class MixinScreenEffectRenderer {
 
-	@Inject(at = @At("HEAD"), method = "renderFire", cancellable = true)
-	private static void clearview$renderFire(Minecraft minecraft, PoseStack poseStack, CallbackInfo ci) {
-		LocalPlayer player = Minecraft.getInstance().player;
-		if (player == null)
-			return;
-		if (player.isCreative())
-			ci.cancel();
-		if (player.isEyeInFluid(FluidTags.LAVA) && (player.fireImmune() || player.hasEffect(MobEffects.FIRE_RESISTANCE)))
-			poseStack.translate(0, -0.25, 0);
-	}
-
+  @Inject(at = @At("HEAD"), method = "renderFireOverlay", cancellable = true)
+  private static void renderFire(MinecraftClient minecraft, MatrixStack poseStack, CallbackInfo ci) {
+    ClientPlayerEntity player = MinecraftClient.getInstance().player;
+    if (player == null)
+      return;
+    if (player.isCreative())
+      ci.cancel();
+    if (player.isSubmergedIn(FluidTags.LAVA)
+        && (player.isFireImmune() || player.hasStatusEffect(StatusEffects.FIRE_RESISTANCE)))
+      poseStack.translate(0, -0.25, 0);
+  }
 }
